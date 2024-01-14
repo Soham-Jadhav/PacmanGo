@@ -1,7 +1,7 @@
 # PacmanGo
 Chase through a maze in the classic Pac-Man game. Devour pellets, dodge ghosts, and experience timeless fun in this iconic arcade adventure.
 
-You can play the game here: \<To be Updated...\>
+You can play the game here: https://sj21031-pacman-go.netlify.app/ 
 
 ---
 
