@@ -6,8 +6,6 @@ const displayTextElem = document.getElementById('displayText');
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
-// canvas.width = innerWidth;
-// canvas.height = innerHeight;
 canvas.width = 440;
 canvas.height = 520;
 
@@ -23,8 +21,6 @@ class Boundary {
     }
 
     draw() {
-        // context.fillStyle = 'blue';
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
         context.drawImage(this.image, this.position.x, this.position.y);
     }
 };
@@ -240,18 +236,6 @@ function init() {
     map1.forEach((row, rowIndex) => {
         row.forEach((symbol, symbolIndex) => {
             switch (symbol) {
-                // case '-':
-                //     boundaries.push(new Boundary({
-                //         position: {
-                //             x: symbolIndex * Boundary.width,
-                //             y: rowIndex * Boundary.height
-                //             // x: symbolIndex * Boundary.width + symbolIndex,
-                //             // y: rowIndex * Boundary.height + rowIndex
-                //         },
-                //         image: createImage('./assets/pipeHorizontal.png')
-                //     }));
-
-                //     break;
                 case '-':
                     boundaries.push(
                         new Boundary({
@@ -465,18 +449,6 @@ function createImage(src) {
 map1.forEach((row, rowIndex) => {
     row.forEach((symbol, symbolIndex) => {
         switch (symbol) {
-            // case '-':
-            //     boundaries.push(new Boundary({
-            //         position: {
-            //             x: symbolIndex * Boundary.width,
-            //             y: rowIndex * Boundary.height
-            //             // x: symbolIndex * Boundary.width + symbolIndex,
-            //             // y: rowIndex * Boundary.height + rowIndex
-            //         },
-            //         image: createImage('./assets/pipeHorizontal.png')
-            //     }));
-
-            //     break;
             case '-':
                 boundaries.push(
                     new Boundary({
@@ -699,7 +671,6 @@ function animate() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     if (keys.w.pressed && lastKey === 'w') {
-        // boundaries.forEach(boundary => {
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
             if (circleCollidesWithRectangle({
@@ -713,10 +684,8 @@ function animate() {
                 pacman.velocity.y = -velo;
             }
         }
-        // });
     }
     else if (keys.s.pressed && lastKey === 's') {
-        // boundaries.forEach(boundary => {
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
             if (circleCollidesWithRectangle({
@@ -730,10 +699,8 @@ function animate() {
                 pacman.velocity.y = velo;
             }
         }
-        // });
     }
     else if (keys.a.pressed && lastKey === 'a') {
-        // boundaries.forEach(boundary => {
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
             if (circleCollidesWithRectangle({
@@ -747,11 +714,8 @@ function animate() {
                 pacman.velocity.x = -velo;
             }
         }
-        // });
     }
     else if (keys.d.pressed && lastKey === 'd') {
-        // boundaries.forEach(boundary => {
-
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
             if (circleCollidesWithRectangle({
@@ -765,25 +729,15 @@ function animate() {
                 pacman.velocity.x = velo;
             }
         }
-        // });
-    }
-    else {
-        // pacman.velocity.x = 0;
-        // pacman.velocity.y = 0;
     }
 
     // Touch pellets 
-    // pellets.forEach((pellet, pelletIndex) => {
     for (let i = pellets.length - 1; i >= 0; i--) {
         const pellet = pellets[i];
         if (Math.hypot(pellet.position.x - pacman.position.x, pellet.position.y - pacman.position.y) < pacman.radius + pellet.radius) {
             scores += 100;
             highscore.innerHTML = Math.max(highscore.innerHTML, scores);
             score.innerHTML = scores;
-
-            // setTimeout(() => {
-            // pellets.splice(pelletIndex, 1);
-            // }, 0);
             pellets.splice(i, 1);
 
         }
@@ -791,7 +745,6 @@ function animate() {
             pellet.draw();
         }
     }
-    // })
 
     // Win condition
     if (pellets.length == 0) {
@@ -856,14 +809,11 @@ function animate() {
     });
 
     pacman.update();
-    // pacman.velocity.x = 0;
-    // pacman.velocity.y = 0;
 
     ghosts.forEach((ghost, ghostIndex) => {
         ghost.update();
 
         if (Math.hypot(ghost.position.x - pacman.position.x, ghost.position.y - pacman.position.y) < pacman.radius + ghost.radius) {
-            // scores -= 100;
             score.innerHTML = scores;
             highscore.innerHTML = Math.max(highscore.innerHTML, scores);
 
@@ -875,14 +825,6 @@ function animate() {
                     return;
                 }, 20);
             }
-            // else{
-            //     scores += 300;
-            //     score.innerHTML = scores;
-
-            //     setTimeout(() => {
-            //         ghosts.splice(ghostIndex, 1);
-            //     }, 0);
-            // }
         }
 
         const collusions = [];
@@ -926,9 +868,6 @@ function animate() {
         }
 
         if (JSON.stringify(collusions) !== JSON.stringify(ghost.prevCollusion)) {
-
-            // console.log(collusions);
-            // console.log(ghost.prevCollusion);
             if (ghost.velocity.x > 0) {
                 ghost.prevCollusion.push('right');
             }
@@ -975,8 +914,6 @@ function animate() {
 
             ghost.prevCollusion = [];
         }
-
-        // console.log(collusions);
     })
 
     if (pacman.velocity.x > 0) {
@@ -999,28 +936,24 @@ addEventListener('keydown', ({ key }) => {
             console.log('up');
             keys.w.pressed = true;
             lastKey = 'w';
-            // pacman.velocity.y = -5;
             break;
 
         case 's':
             console.log('down');
             keys.s.pressed = true;
             lastKey = 's';
-            // pacman.velocity.y = 5;
             break;
 
         case 'a':
             console.log('left');
             keys.a.pressed = true;
             lastKey = 'a';
-            // pacman.velocity.x = -5;
             break;
 
         case 'd':
             console.log('right');
             keys.d.pressed = true;
             lastKey = 'd';
-            // pacman.velocity.x = 5;
             break;
 
         default:
@@ -1033,25 +966,21 @@ addEventListener('keyup', ({ key }) => {
         case 'w':
             console.log('up');
             keys.w.pressed = false;
-            // pacman.velocity.y = 0;
             break;
 
         case 's':
             console.log('down');
             keys.s.pressed = false;
-            // pacman.velocity.y = 0;
             break;
 
         case 'a':
             console.log('left');
             keys.a.pressed = false;
-            // pacman.velocity.x = 0;
             break;
 
         case 'd':
             console.log('right');
             keys.d.pressed = false;
-            // pacman.velocity.x = 0;
             break;
 
         default:
